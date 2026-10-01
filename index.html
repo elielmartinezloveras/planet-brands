@@ -143,7 +143,7 @@
           </div>
         </div>
 
-        <!-- CONTEO DE MONEDAS -->
+      <!-- CONTEO DE MONEDAS (SUBTOTALES GRANDES Y VISIBLES) -->
         <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
           <div class="flex items-center justify-between">
             <h2 class="text-xs font-black uppercase tracking-wider text-slate-600">Arqueo de Monedas</h2>
@@ -151,20 +151,34 @@
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div class="bg-white p-3 rounded-lg border border-slate-200">
-              <label class="text-[11px] font-bold text-slate-500 block mb-1">Monedas RD$ 25</label>
-              <input type="number" id="cant25" min="0" placeholder="0" oninput="calcularTodo()" class="w-full text-base font-black p-2 border rounded-lg border-slate-300 text-center outline-none focus:border-blue-600">
-              <p class="text-right text-xs font-bold text-blue-900 mt-1" id="sub25">RD$ 0.00</p>
+            <!-- MONEDAS 25 -->
+            <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+              <label class="text-xs font-black text-slate-700 block mb-1">Monedas RD$ 25</label>
+              <input type="number" id="cant25" min="0" placeholder="0" oninput="calcularTodo()" class="w-full text-lg font-black p-2 border rounded-lg border-slate-300 text-center outline-none focus:border-blue-600 bg-slate-50 focus:bg-white mb-2">
+              <div class="bg-blue-50/70 p-2 rounded-lg border border-blue-100 text-right">
+                <span class="text-[10px] uppercase font-bold text-blue-800/70 block">Subtotal:</span>
+                <p class="text-lg font-black text-blue-950 leading-tight" id="sub25">RD$ 0.00</p>
+              </div>
             </div>
-            <div class="bg-white p-3 rounded-lg border border-slate-200">
-              <label class="text-[11px] font-bold text-slate-500 block mb-1">Monedas RD$ 10</label>
-              <input type="number" id="cant10" min="0" placeholder="0" oninput="calcularTodo()" class="w-full text-base font-black p-2 border rounded-lg border-slate-300 text-center outline-none focus:border-blue-600">
-              <p class="text-right text-xs font-bold text-blue-900 mt-1" id="sub10">RD$ 0.00</p>
+
+            <!-- MONEDAS 10 -->
+            <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+              <label class="text-xs font-black text-slate-700 block mb-1">Monedas RD$ 10</label>
+              <input type="number" id="cant10" min="0" placeholder="0" oninput="calcularTodo()" class="w-full text-lg font-black p-2 border rounded-lg border-slate-300 text-center outline-none focus:border-blue-600 bg-slate-50 focus:bg-white mb-2">
+              <div class="bg-blue-50/70 p-2 rounded-lg border border-blue-100 text-right">
+                <span class="text-[10px] uppercase font-bold text-blue-800/70 block">Subtotal:</span>
+                <p class="text-lg font-black text-blue-950 leading-tight" id="sub10">RD$ 0.00</p>
+              </div>
             </div>
-            <div class="bg-white p-3 rounded-lg border border-slate-200">
-              <label class="text-[11px] font-bold text-slate-500 block mb-1">Monedas RD$ 5</label>
-              <input type="number" id="cant5" min="0" placeholder="0" oninput="calcularTodo()" class="w-full text-base font-black p-2 border rounded-lg border-slate-300 text-center outline-none focus:border-blue-600">
-              <p class="text-right text-xs font-bold text-blue-900 mt-1" id="sub5">RD$ 0.00</p>
+
+            <!-- MONEDAS 5 -->
+            <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+              <label class="text-xs font-black text-slate-700 block mb-1">Monedas RD$ 5</label>
+              <input type="number" id="cant5" min="0" placeholder="0" oninput="calcularTodo()" class="w-full text-lg font-black p-2 border rounded-lg border-slate-300 text-center outline-none focus:border-blue-600 bg-slate-50 focus:bg-white mb-2">
+              <div class="bg-blue-50/70 p-2 rounded-lg border border-blue-100 text-right">
+                <span class="text-[10px] uppercase font-bold text-blue-800/70 block">Subtotal:</span>
+                <p class="text-lg font-black text-blue-950 leading-tight" id="sub5">RD$ 0.00</p>
+              </div>
             </div>
           </div>
         </div>
