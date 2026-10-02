@@ -16,7 +16,7 @@
 </head>
 <body class="bg-slate-100 text-slate-800 font-sans min-h-screen pb-12">
 
-  <!-- MODAL DE ACCESO / LOGIN (OCULTO POR DEFECTO PARA EVITAR PARPADEO) -->
+  <!-- MODAL DE ACCESO / LOGIN -->
   <div id="modalAuth" class="hidden fixed inset-0 bg-slate-900/90 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
     <div class="bg-white w-full max-w-sm rounded-2xl shadow-2xl p-6 border border-slate-200">
       <div class="text-center mb-6">
@@ -69,17 +69,20 @@
     </div>
   </header>
 
-  <!-- PESTAÑAS DE NAVEGACIÓN -->
+  <!-- PESTAÑAS DE NAVEGACIÓN (AHORA 4 PESTAÑAS) -->
   <nav class="max-w-4xl mx-auto px-4 mt-3">
-    <div class="grid grid-cols-3 gap-2 bg-slate-200/80 p-1.5 rounded-xl text-xs font-bold text-center">
-      <button type="button" id="tabCuadre" onclick="cambiarPestana('cuadre')" class="py-2.5 rounded-lg bg-blue-900 text-white shadow transition">
+    <div class="grid grid-cols-4 gap-1.5 bg-slate-200/80 p-1.5 rounded-xl text-xs font-bold text-center">
+      <button type="button" id="tabCuadre" onclick="cambiarPestana('cuadre')" class="py-2.5 rounded-lg bg-blue-900 text-white shadow transition text-[11px] sm:text-xs">
         📝 Liquidar
       </button>
-      <button type="button" id="tabHistorial" onclick="cambiarPestana('historial')" class="py-2.5 rounded-lg text-slate-600 hover:text-slate-900 transition">
+      <button type="button" id="tabHistorial" onclick="cambiarPestana('historial')" class="py-2.5 rounded-lg text-slate-600 hover:text-slate-900 transition text-[11px] sm:text-xs">
         📊 Registros
       </button>
-      <button type="button" id="tabRutas" onclick="cambiarPestana('rutas')" class="py-2.5 rounded-lg text-slate-600 hover:text-slate-900 transition">
-        ⚙️ Rutas / Nube
+      <button type="button" id="tabDeposito" onclick="cambiarPestana('deposito')" class="py-2.5 rounded-lg text-slate-600 hover:text-slate-900 transition text-[11px] sm:text-xs">
+        🏦 Depósito
+      </button>
+      <button type="button" id="tabRutas" onclick="cambiarPestana('rutas')" class="py-2.5 rounded-lg text-slate-600 hover:text-slate-900 transition text-[11px] sm:text-xs">
+        ⚙️ Rutas/Nube
       </button>
     </div>
   </nav>
@@ -143,7 +146,7 @@
           </div>
         </div>
 
-      <!-- CONTEO DE MONEDAS (SUBTOTALES GRANDES Y VISIBLES) -->
+        <!-- CONTEO DE MONEDAS -->
         <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
           <div class="flex items-center justify-between">
             <h2 class="text-xs font-black uppercase tracking-wider text-slate-600">Arqueo de Monedas</h2>
@@ -151,7 +154,6 @@
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <!-- MONEDAS 25 -->
             <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
               <label class="text-xs font-black text-slate-700 block mb-1">Monedas RD$ 25</label>
               <input type="number" id="cant25" min="0" placeholder="0" oninput="calcularTodo()" class="w-full text-lg font-black p-2 border rounded-lg border-slate-300 text-center outline-none focus:border-blue-600 bg-slate-50 focus:bg-white mb-2">
@@ -161,7 +163,6 @@
               </div>
             </div>
 
-            <!-- MONEDAS 10 -->
             <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
               <label class="text-xs font-black text-slate-700 block mb-1">Monedas RD$ 10</label>
               <input type="number" id="cant10" min="0" placeholder="0" oninput="calcularTodo()" class="w-full text-lg font-black p-2 border rounded-lg border-slate-300 text-center outline-none focus:border-blue-600 bg-slate-50 focus:bg-white mb-2">
@@ -171,7 +172,6 @@
               </div>
             </div>
 
-            <!-- MONEDAS 5 -->
             <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
               <label class="text-xs font-black text-slate-700 block mb-1">Monedas RD$ 5</label>
               <input type="number" id="cant5" min="0" placeholder="0" oninput="calcularTodo()" class="w-full text-lg font-black p-2 border rounded-lg border-slate-300 text-center outline-none focus:border-blue-600 bg-slate-50 focus:bg-white mb-2">
@@ -201,7 +201,7 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
           <button type="button" onclick="limpiarFormulario()" class="py-3.5 bg-rose-50 hover:bg-rose-100 active:bg-rose-200 text-rose-700 font-bold rounded-xl border border-rose-200 shadow-sm transition text-sm uppercase tracking-wider">
-            🗑️ Borrar Campos
+            🗑️️ Borrar Campos
           </button>
           <button type="submit" class="py-3.5 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-black rounded-xl shadow-md transition text-sm uppercase tracking-wider">
             💾 Guardar
@@ -217,12 +217,10 @@
     <section id="vistaHistorial" class="seccion-oculta space-y-4">
       
       <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3">
-        <!-- Filtros principales -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
             <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Ruta</label>
             <select id="filtroRuta" onchange="renderizarHistorial()" class="w-full p-2 border rounded-lg text-xs font-bold bg-slate-50 border-slate-300 outline-none">
-              <!-- Se llena con las rutas + opción Todas -->
             </select>
           </div>
           <div>
@@ -235,7 +233,6 @@
           </div>
         </div>
 
-        <!-- Fechas dinámicas -->
         <div id="contenedorFiltroDia" class="hidden pt-1">
           <label class="block text-[11px] font-bold uppercase text-slate-500 mb-1">Seleccionar Día</label>
           <input type="date" id="filtroFechaDia" onchange="renderizarHistorial()" class="w-full sm:w-1/2 p-2 border rounded-lg text-xs font-bold bg-slate-50 border-slate-300 outline-none">
@@ -252,7 +249,6 @@
           </div>
         </div>
 
-        <!-- Botones de Exportar -->
         <div class="flex flex-wrap gap-2 pt-2 border-t border-slate-100">
           <button type="button" onclick="exportarExcel()" class="bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white px-4 py-2.5 rounded-lg text-xs font-bold uppercase shadow transition flex items-center gap-2">
             <span>📊 Exportar a Excel</span>
@@ -311,7 +307,150 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- VISTA 3: GESTIÓN DE RUTAS Y CLIENTES       -->
+    <!-- VISTA 3: CIERRE SEMANAL Y DEPÓSITO         -->
+    <!-- ========================================== -->
+    <section id="vistaDeposito" class="seccion-oculta space-y-4">
+      
+      <!-- Selector de semana para depósito -->
+      <div class="bg-white p-4 sm:p-5 rounded-2xl shadow-sm border border-slate-200 space-y-3">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+          <div>
+            <h2 class="text-sm font-black text-slate-800 uppercase tracking-wide">Semana de Recolección</h2>
+            <p class="text-xs text-slate-500">Selecciona el rango de lunes a viernes para cuadrar el depósito</p>
+          </div>
+          <button type="button" onclick="fijarEstaSemanaDeposito()" class="bg-blue-100 hover:bg-blue-200 text-blue-900 text-xs font-bold px-3 py-1.5 rounded-lg transition">
+            📅 Esta Semana
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+          <div>
+            <label class="block text-[11px] font-bold uppercase text-slate-500 mb-1">Desde (Lunes)</label>
+            <input type="date" id="depositoFechaDesde" onchange="calcularDepositoSemanal()" class="w-full p-2.5 border rounded-xl text-xs font-bold bg-slate-50 border-slate-300 outline-none">
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold uppercase text-slate-500 mb-1">Hasta (Viernes/Domingo)</label>
+            <input type="date" id="depositoFechaHasta" onchange="calcularDepositoSemanal()" class="w-full p-2.5 border rounded-xl text-xs font-bold bg-slate-50 border-slate-300 outline-none">
+          </div>
+        </div>
+      </div>
+
+      <!-- DESGLOSE POR RUTAS DE LA SEMANA -->
+      <div class="bg-white p-4 sm:p-5 rounded-2xl shadow-sm border border-slate-200 space-y-3">
+        <div class="flex justify-between items-center">
+          <h2 class="text-xs font-black uppercase tracking-wider text-slate-700">1. Rutas Trabajadas en esta Semana</h2>
+          <span class="text-xs font-bold text-slate-400" id="totalRutasSemanaLabel">0 rutas</span>
+        </div>
+
+        <div class="border border-slate-100 rounded-xl overflow-hidden">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead class="bg-slate-50 text-slate-600 font-bold border-b border-slate-200">
+              <tr>
+                <th class="p-3">Nombre de la Ruta</th>
+                <th class="p-3 text-center">Liquidaciones</th>
+                <th class="p-3 text-right">Subtotal Recolectado</th>
+              </tr>
+            </thead>
+            <tbody id="cuerpoRutasSemana" class="divide-y divide-slate-100 text-slate-700">
+            </tbody>
+          </table>
+          <p id="sinRutasSemanaMsg" class="text-center py-5 text-xs text-slate-400 hidden">
+            No se realizaron liquidaciones en el rango de fechas seleccionado.
+          </p>
+        </div>
+
+        <div class="flex justify-between items-center bg-slate-50 p-3 rounded-xl border border-slate-200 font-bold text-xs">
+          <span class="text-slate-600 uppercase">Subtotal Recolección Semanal:</span>
+          <span class="text-blue-900 text-sm font-black" id="subtotalRecoleccionSemanaCard">RD$ 0.00</span>
+        </div>
+      </div>
+
+      <!-- GASTOS EN EFECTIVO -->
+      <div class="bg-white p-4 sm:p-5 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+        <div class="flex justify-between items-center">
+          <h2 class="text-xs font-black uppercase tracking-wider text-slate-700">2. Gastos en Efectivo de la Semana</h2>
+          <span class="text-[11px] font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded border border-rose-200">Se resta del depósito</span>
+        </div>
+
+        <!-- Formulario para agregar gastos -->
+        <form onsubmit="agregarGasto(event)" class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-3">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div>
+              <label class="text-[11px] font-bold text-slate-500 uppercase block mb-1">Concepto del Gasto</label>
+              <input type="text" id="gastoConcepto" placeholder="Ej: Combustible, Peajes, Dieta..." required class="w-full p-2.5 border rounded-lg text-xs font-bold bg-white border-slate-300 outline-none">
+            </div>
+            <div>
+              <label class="text-[11px] font-bold text-slate-500 uppercase block mb-1">Fecha</label>
+              <input type="date" id="gastoFecha" required class="w-full p-2.5 border rounded-lg text-xs font-bold bg-white border-slate-300 outline-none">
+            </div>
+            <div>
+              <label class="text-[11px] font-bold text-slate-500 uppercase block mb-1">Monto en Efectivo (RD$)</label>
+              <input type="number" id="gastoMonto" min="1" step="any" placeholder="0.00" required class="w-full p-2.5 border rounded-lg text-xs font-bold bg-white border-slate-300 outline-none">
+            </div>
+          </div>
+          <button type="submit" class="w-full py-2 bg-rose-700 hover:bg-rose-800 text-white text-xs font-bold uppercase rounded-lg shadow transition">
+            - Registrar Gasto en Efectivo
+          </button>
+        </form>
+
+        <!-- Lista de gastos -->
+        <div class="border border-slate-100 rounded-xl overflow-hidden">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead class="bg-slate-50 text-slate-600 font-bold border-b border-slate-200">
+              <tr>
+                <th class="p-3">Concepto</th>
+                <th class="p-3 text-center">Fecha</th>
+                <th class="p-3 text-right">Monto</th>
+                <th class="p-3 text-center">Quitar</th>
+              </tr>
+            </thead>
+            <tbody id="cuerpoGastosSemana" class="divide-y divide-slate-100 text-slate-700">
+            </tbody>
+          </table>
+          <p id="sinGastosSemanaMsg" class="text-center py-4 text-xs text-slate-400">
+            No hay gastos registrados en esta semana.
+          </p>
+        </div>
+
+        <div class="flex justify-between items-center bg-rose-50 p-3 rounded-xl border border-rose-200 font-bold text-xs">
+          <span class="text-rose-800 uppercase">Total Gastos Restados:</span>
+          <span class="text-rose-700 text-sm font-black" id="totalGastosSemanaCard">- RD$ 0.00</span>
+        </div>
+      </div>
+
+      <!-- TARJETA FINAL DE DEPÓSITO -->
+      <div class="bg-slate-900 text-white p-5 rounded-2xl shadow-lg border border-slate-800 space-y-4">
+        <div>
+          <span class="text-xs uppercase tracking-wider text-slate-400 font-semibold block">Liquidación Bancaria</span>
+          <h3 class="text-base font-black text-white">TOTAL FINAL A DEPOSITAR</h3>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1 border-t border-slate-800">
+          <div>
+            <span class="text-[11px] uppercase text-slate-400 block font-semibold">(+) Total Recolección</span>
+            <p class="text-base font-black text-slate-200" id="tarjetaBrutoSemana">RD$ 0.00</p>
+          </div>
+          <div>
+            <span class="text-[11px] uppercase text-rose-300 block font-semibold">(-) Gastos Efectivo</span>
+            <p class="text-base font-black text-rose-400" id="tarjetaGastosSemana">RD$ 0.00</p>
+          </div>
+          <div class="sm:border-l sm:border-slate-800 sm:pl-3">
+            <span class="text-[11px] uppercase text-emerald-300 block font-semibold">(=) Total a Depositar</span>
+            <p class="text-2xl font-black text-emerald-400" id="tarjetaNetoDeposito">RD$ 0.00</p>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-2 pt-2 border-t border-slate-800">
+          <button type="button" onclick="exportarDepositoWord()" class="flex-1 py-3 bg-blue-700 hover:bg-blue-800 active:bg-blue-900 text-white font-bold rounded-xl text-xs uppercase shadow transition flex items-center justify-center gap-2">
+            <span>📄 Exportar Comprobante (Word)</span>
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================================== -->
+    <!-- VISTA 4: GESTIÓN DE RUTAS Y CLIENTES       -->
     <!-- ========================================== -->
     <section id="vistaRutas" class="seccion-oculta space-y-4">
 
@@ -423,6 +562,7 @@
     let rutasApp = [];
     let catalogoClientes = [];
     let liquidacionesGuardadas = [];
+    let gastosGuardados = []; // Nueva lista de gastos en efectivo
 
     function registrarActividad() {
       localStorage.setItem('pb_ultima_actividad', Date.now().toString());
@@ -441,6 +581,9 @@
       document.getElementById('filtroFechaDia').value = hoy;
       document.getElementById('filtroFechaDesde').value = hoy;
       document.getElementById('filtroFechaHasta').value = hoy;
+      document.getElementById('gastoFecha').value = hoy;
+
+      fijarEstaSemanaDeposito();
 
       if (expiroLimite24Horas()) {
         localStorage.removeItem('pb_ultima_actividad');
@@ -512,12 +655,9 @@
           rol: rolAsignado,
           rutas: RUTAS_BASE,
           clientes: [],
-          liquidaciones: []
+          liquidaciones: [],
+          gastos: []
         });
-
-        if (rolAsignado === 'admin') {
-          await migrarCatalogoAntiguo(usuarioActual.id);
-        }
 
         registrarActividad();
         await iniciarAplicacionConUsuario();
@@ -558,7 +698,8 @@
           rol: (usuarioActual.email === 'elieldejesusml@gmail.com') ? 'admin' : 'colector',
           rutas: RUTAS_BASE,
           clientes: [],
-          liquidaciones: []
+          liquidaciones: [],
+          gastos: []
         };
       }
 
@@ -572,6 +713,7 @@
       rutasApp = perfilActual.rutas || RUTAS_BASE;
       catalogoClientes = perfilActual.clientes || [];
       liquidacionesGuardadas = perfilActual.liquidaciones || [];
+      gastosGuardados = perfilActual.gastos || [];
 
       if (perfilActual.rol === 'admin') {
         configurarPanelAdmin();
@@ -583,20 +725,7 @@
       actualizarClientesSegunRuta();
       renderizarHistorial();
       renderizarListaClientesConfig();
-    }
-
-    async function migrarCatalogoAntiguo(userId) {
-      try {
-        const { data } = await sbClient.from('pb_catalogo').select('*').eq('id', 'catalogo_principal').single();
-        if (data && data.data) {
-          await sbClient.from('pb_usuarios_data').update({
-            rutas: data.data.rutas || RUTAS_BASE,
-            clientes: data.data.clientes || []
-          }).eq('user_id', userId);
-        }
-      } catch (e) {
-        console.warn("No se encontró catálogo previo para migrar.");
-      }
+      calcularDepositoSemanal();
     }
 
     // ==========================================
@@ -628,11 +757,13 @@
         rutasApp = data.rutas || RUTAS_BASE;
         catalogoClientes = data.clientes || [];
         liquidacionesGuardadas = data.liquidaciones || [];
+        gastosGuardados = data.gastos || [];
 
         poblarSelectoresRuta();
         actualizarClientesSegunRuta();
         renderizarHistorial();
         renderizarListaClientesConfig();
+        calcularDepositoSemanal();
       }
     }
 
@@ -654,6 +785,7 @@
         rutas: rutasApp,
         clientes: catalogoClientes,
         liquidaciones: liquidacionesGuardadas,
+        gastos: gastosGuardados,
         updated_at: new Date().toISOString()
       }).eq('user_id', targetUserId);
 
@@ -672,11 +804,13 @@
         rutasApp = data.rutas || RUTAS_BASE;
         catalogoClientes = data.clientes || [];
         liquidacionesGuardadas = data.liquidaciones || [];
+        gastosGuardados = data.gastos || [];
 
         poblarSelectoresRuta();
         actualizarClientesSegunRuta();
         renderizarHistorial();
         renderizarListaClientesConfig();
+        calcularDepositoSemanal();
         if (conAlerta) alert("✅ Datos actualizados desde la nube.");
       }
     }
@@ -691,6 +825,7 @@
         rutas: rutasApp,
         clientes: catalogoClientes,
         liquidaciones: liquidacionesGuardadas,
+        gastos: gastosGuardados,
         fecha: new Date().toISOString()
       };
 
@@ -719,11 +854,13 @@
             rutasApp = data.rutas;
             catalogoClientes = data.clientes;
             if (data.liquidaciones) liquidacionesGuardadas = data.liquidaciones;
+            if (data.gastos) gastosGuardados = data.gastos;
 
             poblarSelectoresRuta();
             actualizarClientesSegunRuta();
             renderizarHistorial();
             renderizarListaClientesConfig();
+            calcularDepositoSemanal();
 
             await guardarDatosEnNube(false);
             alert("✅ Archivo de respaldo restaurado y sincronizado con éxito.");
@@ -738,28 +875,37 @@
     }
 
     // ==========================================
-    // PESTAÑAS
+    // NAVEGACIÓN ENTRE PESTAÑAS (4 PESTAÑAS)
     // ==========================================
     function cambiarPestana(p) {
       registrarActividad();
       document.getElementById('vistaCuadre').classList.add('seccion-oculta');
       document.getElementById('vistaHistorial').classList.add('seccion-oculta');
+      document.getElementById('vistaDeposito').classList.add('seccion-oculta');
       document.getElementById('vistaRutas').classList.add('seccion-oculta');
 
-      document.getElementById('tabCuadre').className = "py-2.5 rounded-lg text-slate-600 hover:text-slate-900 transition";
-      document.getElementById('tabHistorial').className = "py-2.5 rounded-lg text-slate-600 hover:text-slate-900 transition";
-      document.getElementById('tabRutas').className = "py-2.5 rounded-lg text-slate-600 hover:text-slate-900 transition";
+      const clasesInactiva = "py-2.5 rounded-lg text-slate-600 hover:text-slate-900 transition text-[11px] sm:text-xs";
+      const clasesActiva = "py-2.5 rounded-lg bg-blue-900 text-white shadow transition text-[11px] sm:text-xs";
+
+      document.getElementById('tabCuadre').className = clasesInactiva;
+      document.getElementById('tabHistorial').className = clasesInactiva;
+      document.getElementById('tabDeposito').className = clasesInactiva;
+      document.getElementById('tabRutas').className = clasesInactiva;
 
       if (p === 'cuadre') {
         document.getElementById('vistaCuadre').classList.remove('seccion-oculta');
-        document.getElementById('tabCuadre').className = "py-2.5 rounded-lg bg-blue-900 text-white shadow transition";
+        document.getElementById('tabCuadre').className = clasesActiva;
       } else if (p === 'historial') {
         document.getElementById('vistaHistorial').classList.remove('seccion-oculta');
-        document.getElementById('tabHistorial').className = "py-2.5 rounded-lg bg-blue-900 text-white shadow transition";
+        document.getElementById('tabHistorial').className = clasesActiva;
         renderizarHistorial();
+      } else if (p === 'deposito') {
+        document.getElementById('vistaDeposito').classList.remove('seccion-oculta');
+        document.getElementById('tabDeposito').className = clasesActiva;
+        calcularDepositoSemanal();
       } else if (p === 'rutas') {
         document.getElementById('vistaRutas').classList.remove('seccion-oculta');
-        document.getElementById('tabRutas').className = "py-2.5 rounded-lg bg-blue-900 text-white shadow transition";
+        document.getElementById('tabRutas').className = clasesActiva;
         renderizarListaClientesConfig();
       }
     }
@@ -776,8 +922,6 @@
 
       s1.innerHTML = opcionesIndividuales;
       s3.innerHTML = opcionesIndividuales;
-
-      // El filtro del historial incluye la opción de consolidar todas las rutas
       s2.innerHTML = `<option value="TODAS">TODAS LAS RUTAS (CONSOLIDADO)</option>` + opcionesIndividuales;
     }
 
@@ -832,7 +976,7 @@
     }
 
     // ==========================================
-    // CÁLCULOS
+    // CÁLCULOS DE CUADRE INDIVIDUAL
     // ==========================================
     function calcularTodo() {
       const c25 = Number(document.getElementById('cant25').value) || 0;
@@ -873,9 +1017,6 @@
       calcularTodo();
     }
 
-    // ==========================================
-    // GUARDAR CUADRE
-    // ==========================================
     async function guardarCuadre(e) {
       e.preventDefault();
       registrarActividad();
@@ -934,7 +1075,7 @@
     }
 
     // ==========================================
-    // FILTROS DE FECHA Y RUTA
+    // HISTORIAL GENERAL (REGISTROS)
     // ==========================================
     function alternarFiltroFecha() {
       const tipo = document.getElementById('filtroTipoPeriodo').value;
@@ -958,7 +1099,6 @@
       const tipo = document.getElementById('filtroTipoPeriodo').value;
 
       return liquidacionesGuardadas.filter(item => {
-        // Si no es "TODAS", filtra por la ruta seleccionada
         if (ruta !== "TODAS" && item.ruta !== ruta) return false;
 
         if (tipo === 'dia') {
@@ -1035,6 +1175,7 @@
         liquidacionesGuardadas = liquidacionesGuardadas.filter(item => item.id !== id);
         await guardarDatosEnNube(false);
         renderizarHistorial();
+        calcularDepositoSemanal();
       }
     }
 
@@ -1052,11 +1193,12 @@
         }
         await guardarDatosEnNube(false);
         renderizarHistorial();
+        calcularDepositoSemanal();
       }
     }
 
     // ==========================================
-    // EXPORTACIÓN A EXCEL Y WORD (UTF-8)
+    // EXPORTACIÓN A EXCEL Y WORD DE REGISTROS
     // ==========================================
     function obtenerTextoPeriodo() {
       const tipo = document.getElementById('filtroTipoPeriodo').value;
@@ -1184,6 +1326,261 @@
     }
 
     // ==========================================
+    // SECCIÓN NUEVA: DEPÓSITO SEMANAL Y GASTOS
+    // ==========================================
+    function fijarEstaSemanaDeposito() {
+      const ahora = new Date();
+      const diaSemana = ahora.getDay(); // 0 = Domingo, 1 = Lunes...
+      
+      // Calcular el lunes de esta semana
+      const distanciaLunes = (diaSemana === 0 ? -6 : 1) - diaSemana;
+      const lunes = new Date(ahora);
+      lunes.setDate(ahora.getDate() + distanciaLunes);
+
+      // Calcular el viernes de esta semana
+      const viernes = new Date(lunes);
+      viernes.setDate(lunes.getDate() + 4);
+
+      document.getElementById('depositoFechaDesde').value = lunes.toISOString().split('T')[0];
+      document.getElementById('depositoFechaHasta').value = viernes.toISOString().split('T')[0];
+
+      calcularDepositoSemanal();
+    }
+
+    function calcularDepositoSemanal() {
+      const desde = document.getElementById('depositoFechaDesde').value;
+      const hasta = document.getElementById('depositoFechaHasta').value;
+
+      if (!desde || !hasta) return;
+
+      // 1. Filtrar liquidaciones de la semana
+      const liquidacionesSemana = liquidacionesGuardadas.filter(item => item.fecha >= desde && item.fecha <= hasta);
+
+      // Agrupar por ruta
+      const resumenPorRuta = {};
+      let totalRecoleccionSemana = 0;
+
+      liquidacionesSemana.forEach(item => {
+        const ganancia = Number(item.gananciaEmpresa) || 0;
+        totalRecoleccionSemana += ganancia;
+
+        if (!resumenPorRuta[item.ruta]) {
+          resumenPorRuta[item.ruta] = { total: 0, cantidad: 0 };
+        }
+        resumenPorRuta[item.ruta].total += ganancia;
+        resumenPorRuta[item.ruta].cantidad += 1;
+      });
+
+      // Renderizar tabla de rutas
+      const cuerpoRutas = document.getElementById('cuerpoRutasSemana');
+      const msgSinRutas = document.getElementById('sinRutasSemanaMsg');
+      cuerpoRutas.innerHTML = '';
+
+      const nombresRutas = Object.keys(resumenPorRuta);
+      document.getElementById('totalRutasSemanaLabel').textContent = `${nombresRutas.length} rutas trabajadas`;
+
+      if (nombresRutas.length === 0) {
+        msgSinRutas.classList.remove('hidden');
+      } else {
+        msgSinRutas.classList.add('hidden');
+        nombresRutas.forEach(ruta => {
+          const info = resumenPorRuta[ruta];
+          const fila = document.createElement('tr');
+          fila.className = "hover:bg-slate-50 transition border-b border-slate-100";
+          fila.innerHTML = `
+            <td class="p-3 font-bold text-slate-800 uppercase text-xs">${ruta}</td>
+            <td class="p-3 text-center text-slate-500 font-medium">${info.cantidad} clientes</td>
+            <td class="p-3 text-right font-black text-blue-950">RD$ ${info.total.toLocaleString('es-DO', { minimumFractionDigits: 2 })}</td>
+          `;
+          cuerpoRutas.appendChild(fila);
+        });
+      }
+
+      document.getElementById('subtotalRecoleccionSemanaCard').textContent = `RD$ ${totalRecoleccionSemana.toLocaleString('es-DO', { minimumFractionDigits: 2 })}`;
+
+      // 2. Filtrar gastos de la semana
+      const gastosSemana = gastosGuardados.filter(g => g.fecha >= desde && g.fecha <= hasta);
+      const cuerpoGastos = document.getElementById('cuerpoGastosSemana');
+      const msgSinGastos = document.getElementById('sinGastosSemanaMsg');
+      cuerpoGastos.innerHTML = '';
+
+      let totalGastosSemana = 0;
+
+      if (gastosSemana.length === 0) {
+        msgSinGastos.classList.remove('hidden');
+      } else {
+        msgSinGastos.classList.add('hidden');
+        gastosSemana.forEach(gasto => {
+          totalGastosSemana += Number(gasto.monto) || 0;
+          const fila = document.createElement('tr');
+          fila.className = "hover:bg-slate-50 transition border-b border-slate-100";
+          fila.innerHTML = `
+            <td class="p-3 font-bold text-slate-800 text-xs">${gasto.concepto}</td>
+            <td class="p-3 text-center text-slate-500 font-medium">${gasto.fecha}</td>
+            <td class="p-3 text-right font-black text-rose-600">- RD$ ${Number(gasto.monto).toLocaleString('es-DO', { minimumFractionDigits: 2 })}</td>
+            <td class="p-3 text-center">
+              <button onclick="eliminarGasto(${gasto.id})" class="text-rose-500 hover:text-rose-700 font-bold text-sm px-2 py-1">✕</button>
+            </td>
+          `;
+          cuerpoGastos.appendChild(fila);
+        });
+      }
+
+      document.getElementById('totalGastosSemanaCard').textContent = `- RD$ ${totalGastosSemana.toLocaleString('es-DO', { minimumFractionDigits: 2 })}`;
+
+      // 3. Totales finales a depositar
+      const totalNetoADepositar = Math.max(0, totalRecoleccionSemana - totalGastosSemana);
+
+      document.getElementById('tarjetaBrutoSemana').textContent = `RD$ ${totalRecoleccionSemana.toLocaleString('es-DO', { minimumFractionDigits: 2 })}`;
+      document.getElementById('tarjetaGastosSemana').textContent = `- RD$ ${totalGastosSemana.toLocaleString('es-DO', { minimumFractionDigits: 2 })}`;
+      document.getElementById('tarjetaNetoDeposito').textContent = `RD$ ${totalNetoADepositar.toLocaleString('es-DO', { minimumFractionDigits: 2 })}`;
+    }
+
+    async function agregarGasto(e) {
+      e.preventDefault();
+      registrarActividad();
+
+      const concepto = document.getElementById('gastoConcepto').value.trim();
+      const fecha = document.getElementById('gastoFecha').value;
+      const monto = Number(document.getElementById('gastoMonto').value) || 0;
+
+      if (!concepto || monto <= 0) {
+        alert("Ingresa un concepto y un monto válido.");
+        return;
+      }
+
+      const nuevoGasto = {
+        id: Date.now(),
+        concepto: concepto,
+        fecha: fecha,
+        monto: monto
+      };
+
+      gastosGuardados.unshift(nuevoGasto);
+      await guardarDatosEnNube(false);
+
+      document.getElementById('gastoConcepto').value = '';
+      document.getElementById('gastoMonto').value = '';
+
+      calcularDepositoSemanal();
+      alert("✅ Gasto en efectivo registrado.");
+    }
+
+    async function eliminarGasto(id) {
+      if (confirm("¿Deseas eliminar este gasto?")) {
+        gastosGuardados = gastosGuardados.filter(g => g.id !== id);
+        await guardarDatosEnNube(false);
+        calcularDepositoSemanal();
+      }
+    }
+
+    function exportarDepositoWord() {
+      const desde = document.getElementById('depositoFechaDesde').value;
+      const hasta = document.getElementById('depositoFechaHasta').value;
+
+      const liquidacionesSemana = liquidacionesGuardadas.filter(item => item.fecha >= desde && item.fecha <= hasta);
+      const gastosSemana = gastosGuardados.filter(g => g.fecha >= desde && g.fecha <= hasta);
+
+      const resumenPorRuta = {};
+      let totalRecoleccion = 0;
+
+      liquidacionesSemana.forEach(item => {
+        const ganancia = Number(item.gananciaEmpresa) || 0;
+        totalRecoleccion += ganancia;
+        if (!resumenPorRuta[item.ruta]) resumenPorRuta[item.ruta] = 0;
+        resumenPorRuta[item.ruta] += ganancia;
+      });
+
+      let totalGastos = 0;
+      let filasGastosHtml = "";
+      gastosSemana.forEach(g => {
+        totalGastos += Number(g.monto) || 0;
+        filasGastosHtml += `
+          <tr>
+            <td style="padding: 6px 12px; font-size: 13px; color: #475569;">- ${g.concepto} (${g.fecha}):</td>
+            <td style="padding: 6px 12px; font-size: 13px; text-align: right; color: #dc2626; font-weight: bold;">- RD$ ${Number(g.monto).toLocaleString('es-DO', { minimumFractionDigits: 2 })}</td>
+          </tr>
+        `;
+      });
+
+      let filasRutasHtml = "";
+      for (const ruta in resumenPorRuta) {
+        filasRutasHtml += `
+          <tr>
+            <td style="padding: 6px 12px; font-size: 13px; color: #1e293b;">- ${ruta}:</td>
+            <td style="padding: 6px 12px; font-size: 13px; text-align: right; font-weight: bold; color: #0f172a;">RD$ ${resumenPorRuta[ruta].toLocaleString('es-DO', { minimumFractionDigits: 2 })}</td>
+          </tr>
+        `;
+      }
+
+      const totalNetoADepositar = Math.max(0, totalRecoleccion - totalGastos);
+
+      const contenidoDoc = `
+        <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+        <head>
+          <meta charset='utf-8'>
+          <title>Comprobante de Depósito Semanal</title>
+          <style>
+            body { font-family: Calibri, Arial, sans-serif; margin: 24px; color: #0f172a; }
+            h2 { margin-bottom: 4px; font-size: 18px; color: #1e3a8a; }
+            h3 { font-size: 14px; margin-top: 16px; margin-bottom: 6px; color: #334155; text-transform: uppercase; border-bottom: 1px solid #cbd5e1; padding-bottom: 4px; }
+            p.subtitulo { font-size: 12px; color: #64748b; margin-top: 0; margin-bottom: 16px; }
+            table { width: 100%; border-collapse: collapse; margin-top: 4px; }
+            tr.total-row { border-top: 2px solid #0f172a; background-color: #f8fafc; }
+          </style>
+        </head>
+        <body>
+          <h2>PLANET BRANDS - CIERRE Y DEPÓSITO SEMANAL</h2>
+          <p class="subtitulo">Período de recolección: <strong>Del ${desde} al ${hasta}</strong></p>
+
+          <h3>1. Resumen de Rutas Trabajadas</h3>
+          <table>
+            <tbody>
+              ${filasRutasHtml || "<tr><td colspan='2' style='padding:6px 12px;'>No hay rutas en este período</td></tr>"}
+              <tr style="border-top: 1px solid #cbd5e1;">
+                <td style="padding: 8px 12px; font-weight: bold;">Subtotal Recolección:</td>
+                <td style="padding: 8px 12px; text-align: right; font-weight: bold; color: #1e3a8a;">RD$ ${totalRecoleccion.toLocaleString('es-DO', { minimumFractionDigits: 2 })}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>2. Gastos en Efectivo Deducidos</h3>
+          <table>
+            <tbody>
+              ${filasGastosHtml || "<tr><td colspan='2' style='padding:6px 12px;'>Sin gastos registrados</td></tr>"}
+              <tr style="border-top: 1px solid #cbd5e1;">
+                <td style="padding: 8px 12px; font-weight: bold; color: #dc2626;">Total Gastos:</td>
+                <td style="padding: 8px 12px; text-align: right; font-weight: bold; color: #dc2626;">- RD$ ${totalGastos.toLocaleString('es-DO', { minimumFractionDigits: 2 })}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <br/>
+          <table>
+            <tbody>
+              <tr class="total-row">
+                <td style="padding: 12px; font-size: 16px; font-weight: bold; color: #0f172a;">TOTAL NETO A DEPOSITAR:</td>
+                <td style="padding: 12px; font-size: 18px; font-weight: bold; text-align: right; color: #047857;">RD$ ${totalNetoADepositar.toLocaleString('es-DO', { minimumFractionDigits: 2 })}</td>
+              </tr>
+            </tbody>
+          </table>
+        </body>
+        </html>
+      `;
+
+      const blob = new Blob(['\uFEFF' + contenidoDoc], { type: 'application/msword;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+
+      link.href = url;
+      link.download = `Deposito_Semanal_${desde}_al_${hasta}.doc`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+
+    // ==========================================
     // ADMINISTRACIÓN DE RUTAS Y CLIENTES
     // ==========================================
     async function agregarRuta() {
@@ -1209,7 +1606,7 @@
       const concepto = document.getElementById('nuevoClienteConcepto').value;
       const porcentaje = Number(document.getElementById('nuevoClientePorcentaje').value) || 25;
 
-      const existe = catalogoClientes.some(c => c.ruta === ruta && c.nombre.toLowerCase() === nombre.toLowerCase() && c.concepto === concepto);
+      const existe = catalogoClientes.some(c => c.ruta === ruta && c.nombre.toLowerCase() === clienteNombre.toLowerCase() && c.concepto === concepto);
       if (existe) {
         alert("Este cliente ya tiene asignada esa máquina en esta ruta.");
         return;
