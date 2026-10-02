@@ -69,7 +69,7 @@
     </div>
   </header>
 
-  <!-- PESTAÑAS DE NAVEGACIÓN (AHORA 4 PESTAÑAS) -->
+  <!-- PESTAÑAS DE NAVEGACIÓN -->
   <nav class="max-w-4xl mx-auto px-4 mt-3">
     <div class="grid grid-cols-4 gap-1.5 bg-slate-200/80 p-1.5 rounded-xl text-xs font-bold text-center">
       <button type="button" id="tabCuadre" onclick="cambiarPestana('cuadre')" class="py-2.5 rounded-lg bg-blue-900 text-white shadow transition text-[11px] sm:text-xs">
@@ -201,7 +201,7 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
           <button type="button" onclick="limpiarFormulario()" class="py-3.5 bg-rose-50 hover:bg-rose-100 active:bg-rose-200 text-rose-700 font-bold rounded-xl border border-rose-200 shadow-sm transition text-sm uppercase tracking-wider">
-            🗑️️ Borrar Campos
+            🗑 Borrar Campos
           </button>
           <button type="submit" class="py-3.5 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-black rounded-xl shadow-md transition text-sm uppercase tracking-wider">
             💾 Guardar
@@ -307,7 +307,7 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- VISTA 3: CIERRE SEMANAL Y DEPÓSITO         -->
+    <!-- VISTA 3: CIERRE SEMANAL, DEPÓSITO Y ARQUEO -->
     <!-- ========================================== -->
     <section id="vistaDeposito" class="seccion-oculta space-y-4">
       
@@ -372,7 +372,6 @@
           <span class="text-[11px] font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded border border-rose-200">Se resta del depósito</span>
         </div>
 
-        <!-- Formulario para agregar gastos -->
         <form onsubmit="agregarGasto(event)" class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-3">
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div>
@@ -393,7 +392,6 @@
           </button>
         </form>
 
-        <!-- Lista de gastos -->
         <div class="border border-slate-100 rounded-xl overflow-hidden">
           <table class="w-full text-left text-xs border-collapse">
             <thead class="bg-slate-50 text-slate-600 font-bold border-b border-slate-200">
@@ -418,31 +416,159 @@
         </div>
       </div>
 
-      <!-- TARJETA FINAL DE DEPÓSITO -->
-      <div class="bg-slate-900 text-white p-5 rounded-2xl shadow-lg border border-slate-800 space-y-4">
-        <div>
-          <span class="text-xs uppercase tracking-wider text-slate-400 font-semibold block">Liquidación Bancaria</span>
-          <h3 class="text-base font-black text-white">TOTAL FINAL A DEPOSITAR</h3>
+      <!-- ======================================================= -->
+      <!-- NUEVO: ARQUEO FÍSICO EN MANO (BILLETES Y MONEDAS)       -->
+      <!-- ======================================================= -->
+      <div class="bg-white p-4 sm:p-5 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+        <div class="flex justify-between items-center">
+          <div>
+            <h2 class="text-xs font-black uppercase tracking-wider text-slate-700">3. Arqueo Físico en Mano (Bolsa de Efectivo)</h2>
+            <p class="text-[11px] text-slate-500">Cuenta tus papeletas y monedas para validar contra el depósito</p>
+          </div>
+          <button type="button" onclick="limpiarArqueoFisico()" class="text-xs text-slate-400 hover:text-rose-600 underline font-semibold">
+            Reiniciar Conteo
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- TABLA DE BILLETES -->
+          <div class="border border-slate-200 rounded-xl overflow-hidden bg-slate-50/50">
+            <div class="bg-blue-900 text-white px-3 py-2 text-xs font-black uppercase tracking-wide flex justify-between">
+              <span>💵 Papeletas / Billetes</span>
+              <span id="labelTotalPapeletasContadas">0 Billetes</span>
+            </div>
+            <table class="w-full text-xs text-left">
+              <thead class="bg-slate-100 text-slate-600 font-bold border-b border-slate-200">
+                <tr>
+                  <th class="p-2.5">Denominación</th>
+                  <th class="p-2.5 text-center w-24">Cantidad</th>
+                  <th class="p-2.5 text-right">Subtotal</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 bg-white">
+                <tr>
+                  <td class="p-2 font-bold text-slate-700">RD$ 2,000</td>
+                  <td class="p-1.5"><input type="number" min="0" placeholder="0" id="b2000" oninput="calcularArqueoFisico()" class="w-full text-center p-1.5 border rounded-lg font-black text-sm bg-slate-50 outline-none focus:border-blue-600 focus:bg-white"></td>
+                  <td class="p-2 text-right font-black text-slate-800" id="subB2000">RD$ 0.00</td>
+                </tr>
+                <tr>
+                  <td class="p-2 font-bold text-slate-700">RD$ 1,000</td>
+                  <td class="p-1.5"><input type="number" min="0" placeholder="0" id="b1000" oninput="calcularArqueoFisico()" class="w-full text-center p-1.5 border rounded-lg font-black text-sm bg-slate-50 outline-none focus:border-blue-600 focus:bg-white"></td>
+                  <td class="p-2 text-right font-black text-slate-800" id="subB1000">RD$ 0.00</td>
+                </tr>
+                <tr>
+                  <td class="p-2 font-bold text-slate-700">RD$ 500</td>
+                  <td class="p-1.5"><input type="number" min="0" placeholder="0" id="b500" oninput="calcularArqueoFisico()" class="w-full text-center p-1.5 border rounded-lg font-black text-sm bg-slate-50 outline-none focus:border-blue-600 focus:bg-white"></td>
+                  <td class="p-2 text-right font-black text-slate-800" id="subB500">RD$ 0.00</td>
+                </tr>
+                <tr>
+                  <td class="p-2 font-bold text-slate-700">RD$ 200</td>
+                  <td class="p-1.5"><input type="number" min="0" placeholder="0" id="b200" oninput="calcularArqueoFisico()" class="w-full text-center p-1.5 border rounded-lg font-black text-sm bg-slate-50 outline-none focus:border-blue-600 focus:bg-white"></td>
+                  <td class="p-2 text-right font-black text-slate-800" id="subB200">RD$ 0.00</td>
+                </tr>
+                <tr>
+                  <td class="p-2 font-bold text-slate-700">RD$ 100</td>
+                  <td class="p-1.5"><input type="number" min="0" placeholder="0" id="b100" oninput="calcularArqueoFisico()" class="w-full text-center p-1.5 border rounded-lg font-black text-sm bg-slate-50 outline-none focus:border-blue-600 focus:bg-white"></td>
+                  <td class="p-2 text-right font-black text-slate-800" id="subB100">RD$ 0.00</td>
+                </tr>
+                <tr>
+                  <td class="p-2 font-bold text-slate-700">RD$ 50</td>
+                  <td class="p-1.5"><input type="number" min="0" placeholder="0" id="b50" oninput="calcularArqueoFisico()" class="w-full text-center p-1.5 border rounded-lg font-black text-sm bg-slate-50 outline-none focus:border-blue-600 focus:bg-white"></td>
+                  <td class="p-2 text-right font-black text-slate-800" id="subB50">RD$ 0.00</td>
+                </tr>
+              </tbody>
+              <tfoot class="bg-blue-50 border-t border-blue-200">
+                <tr>
+                  <td colspan="2" class="p-2.5 font-black text-blue-900 uppercase text-[11px]">Total Papeletas:</td>
+                  <td class="p-2.5 text-right font-black text-blue-950 text-sm" id="totalBilletesCard">RD$ 0.00</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+
+          <!-- TABLA DE MONEDAS -->
+          <div class="border border-slate-200 rounded-xl overflow-hidden bg-slate-50/50 flex flex-col justify-between">
+            <div>
+              <div class="bg-amber-600 text-white px-3 py-2 text-xs font-black uppercase tracking-wide flex justify-between">
+                <span>🪙 Monedas Físicas</span>
+                <span id="labelTotalMonedasContadas">0 Monedas</span>
+              </div>
+              <table class="w-full text-xs text-left">
+                <thead class="bg-slate-100 text-slate-600 font-bold border-b border-slate-200">
+                  <tr>
+                    <th class="p-2.5">Denominación</th>
+                    <th class="p-2.5 text-center w-24">Cantidad</th>
+                    <th class="p-2.5 text-right">Subtotal</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 bg-white">
+                  <tr>
+                    <td class="p-2 font-bold text-slate-700">RD$ 25</td>
+                    <td class="p-1.5"><input type="number" min="0" placeholder="0" id="m25" oninput="calcularArqueoFisico()" class="w-full text-center p-1.5 border rounded-lg font-black text-sm bg-slate-50 outline-none focus:border-amber-600 focus:bg-white"></td>
+                    <td class="p-2 text-right font-black text-slate-800" id="subM25">RD$ 0.00</td>
+                  </tr>
+                  <tr>
+                    <td class="p-2 font-bold text-slate-700">RD$ 10</td>
+                    <td class="p-1.5"><input type="number" min="0" placeholder="0" id="m10" oninput="calcularArqueoFisico()" class="w-full text-center p-1.5 border rounded-lg font-black text-sm bg-slate-50 outline-none focus:border-amber-600 focus:bg-white"></td>
+                    <td class="p-2 text-right font-black text-slate-800" id="subM10">RD$ 0.00</td>
+                  </tr>
+                  <tr>
+                    <td class="p-2 font-bold text-slate-700">RD$ 5</td>
+                    <td class="p-1.5"><input type="number" min="0" placeholder="0" id="m5" oninput="calcularArqueoFisico()" class="w-full text-center p-1.5 border rounded-lg font-black text-sm bg-slate-50 outline-none focus:border-amber-600 focus:bg-white"></td>
+                    <td class="p-2 text-right font-black text-slate-800" id="subM5">RD$ 0.00</td>
+                  </tr>
+                  <tr>
+                    <td class="p-2 font-bold text-slate-700">RD$ 1</td>
+                    <td class="p-1.5"><input type="number" min="0" placeholder="0" id="m1" oninput="calcularArqueoFisico()" class="w-full text-center p-1.5 border rounded-lg font-black text-sm bg-slate-50 outline-none focus:border-amber-600 focus:bg-white"></td>
+                    <td class="p-2 text-right font-black text-slate-800" id="subM1">RD$ 0.00</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="bg-amber-50 border-t border-amber-200 p-2.5 flex justify-between items-center">
+              <span class="font-black text-amber-900 uppercase text-[11px]">Total Monedas:</span>
+              <span class="font-black text-amber-950 text-sm" id="totalMonedasFisicasCard">RD$ 0.00</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- TOTAL EN MANO (SUMA AMBOS) -->
+        <div class="bg-slate-100 p-3.5 rounded-xl border border-slate-200 flex justify-between items-center font-bold text-xs">
+          <span class="text-slate-700 uppercase">Total Dinero Físico en Mano (Papeletas + Monedas):</span>
+          <span class="text-slate-900 text-base font-black" id="totalFisicoEnManoCard">RD$ 0.00</span>
+        </div>
+      </div>
+
+      <!-- COMPARADOR DE AUDITORÍA (DEPÓSITO vs DINERO FÍSICO) -->
+      <div id="contenedorAuditoria" class="p-5 rounded-2xl shadow-lg border space-y-3 bg-slate-900 text-white border-slate-800">
+        <div class="flex justify-between items-center">
+          <span class="text-xs uppercase tracking-wider text-slate-400 font-semibold block">Auditoría de Cuadre</span>
+          <span id="badgeEstadoCuadre" class="px-2.5 py-0.5 rounded-full text-xs font-black uppercase bg-slate-800 text-slate-300">
+            Pendiente conteo
+          </span>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1 border-t border-slate-800">
           <div>
-            <span class="text-[11px] uppercase text-slate-400 block font-semibold">(+) Total Recolección</span>
-            <p class="text-base font-black text-slate-200" id="tarjetaBrutoSemana">RD$ 0.00</p>
+            <span class="text-[11px] uppercase text-slate-400 block font-semibold">Total a Depositar (Sistema)</span>
+            <p class="text-lg font-black text-blue-300" id="auditoriaTotalSistema">RD$ 0.00</p>
           </div>
           <div>
-            <span class="text-[11px] uppercase text-rose-300 block font-semibold">(-) Gastos Efectivo</span>
-            <p class="text-base font-black text-rose-400" id="tarjetaGastosSemana">RD$ 0.00</p>
+            <span class="text-[11px] uppercase text-slate-400 block font-semibold">Efectivo Físico Contado</span>
+            <p class="text-lg font-black text-slate-100" id="auditoriaTotalContado">RD$ 0.00</p>
           </div>
           <div class="sm:border-l sm:border-slate-800 sm:pl-3">
-            <span class="text-[11px] uppercase text-emerald-300 block font-semibold">(=) Total a Depositar</span>
-            <p class="text-2xl font-black text-emerald-400" id="tarjetaNetoDeposito">RD$ 0.00</p>
+            <span class="text-[11px] uppercase text-slate-400 block font-semibold">Diferencia de Cuadre</span>
+            <p class="text-2xl font-black text-slate-300" id="auditoriaDiferencia">RD$ 0.00</p>
           </div>
         </div>
 
+        <p id="mensajeAuditoria" class="text-xs font-bold text-center pt-2 text-slate-400"></p>
+
         <div class="flex flex-wrap gap-2 pt-2 border-t border-slate-800">
           <button type="button" onclick="exportarDepositoWord()" class="flex-1 py-3 bg-blue-700 hover:bg-blue-800 active:bg-blue-900 text-white font-bold rounded-xl text-xs uppercase shadow transition flex items-center justify-center gap-2">
-            <span>📄 Exportar Comprobante (Word)</span>
+            <span>📄 Exportar Comprobante de Depósito (Word)</span>
           </button>
         </div>
       </div>
@@ -454,7 +580,6 @@
     <!-- ========================================== -->
     <section id="vistaRutas" class="seccion-oculta space-y-4">
 
-      <!-- Panel de Sincronización y Respaldos Físicos -->
       <div class="w-full bg-slate-900 text-white p-4 sm:p-5 rounded-xl shadow border border-slate-800 space-y-3 box-border overflow-hidden">
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
           <div>
@@ -471,15 +596,12 @@
         </div>
 
         <div class="flex flex-wrap gap-2 pt-1">
-          <!-- Botones Nube -->
           <button type="button" onclick="guardarDatosEnNube(true)" class="bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white px-4 py-2 rounded-lg text-xs font-bold uppercase shadow transition flex items-center gap-1.5">
             <span>☁️ Subir a la Nube</span>
           </button>
           <button type="button" onclick="descargarDatosDeNube(true)" class="bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white px-4 py-2 rounded-lg text-xs font-bold uppercase shadow transition flex items-center gap-1.5">
             <span>🔄 Descargar de la Nube</span>
           </button>
-
-          <!-- Botones Respaldo en Archivo Local -->
           <button type="button" onclick="descargarCopiaSeguridad()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-lg text-xs font-bold shadow border border-slate-700 flex items-center gap-1">
             <span>📥 Archivo Respaldo</span>
           </button>
@@ -562,7 +684,10 @@
     let rutasApp = [];
     let catalogoClientes = [];
     let liquidacionesGuardadas = [];
-    let gastosGuardados = []; // Nueva lista de gastos en efectivo
+    let gastosGuardados = [];
+
+    // Variables de control de depósito y arqueo
+    let totalNetoDepositoCalculado = 0;
 
     function registrarActividad() {
       localStorage.setItem('pb_ultima_actividad', Date.now().toString());
@@ -875,7 +1000,7 @@
     }
 
     // ==========================================
-    // NAVEGACIÓN ENTRE PESTAÑAS (4 PESTAÑAS)
+    // PESTAÑAS
     // ==========================================
     function cambiarPestana(p) {
       registrarActividad();
@@ -1326,18 +1451,16 @@
     }
 
     // ==========================================
-    // SECCIÓN NUEVA: DEPÓSITO SEMANAL Y GASTOS
+    // SECCIÓN DEPÓSITO SEMANAL, GASTOS Y ARQUEO
     // ==========================================
     function fijarEstaSemanaDeposito() {
       const ahora = new Date();
-      const diaSemana = ahora.getDay(); // 0 = Domingo, 1 = Lunes...
+      const diaSemana = ahora.getDay();
       
-      // Calcular el lunes de esta semana
       const distanciaLunes = (diaSemana === 0 ? -6 : 1) - diaSemana;
       const lunes = new Date(ahora);
       lunes.setDate(ahora.getDate() + distanciaLunes);
 
-      // Calcular el viernes de esta semana
       const viernes = new Date(lunes);
       viernes.setDate(lunes.getDate() + 4);
 
@@ -1353,10 +1476,8 @@
 
       if (!desde || !hasta) return;
 
-      // 1. Filtrar liquidaciones de la semana
       const liquidacionesSemana = liquidacionesGuardadas.filter(item => item.fecha >= desde && item.fecha <= hasta);
 
-      // Agrupar por ruta
       const resumenPorRuta = {};
       let totalRecoleccionSemana = 0;
 
@@ -1371,7 +1492,6 @@
         resumenPorRuta[item.ruta].cantidad += 1;
       });
 
-      // Renderizar tabla de rutas
       const cuerpoRutas = document.getElementById('cuerpoRutasSemana');
       const msgSinRutas = document.getElementById('sinRutasSemanaMsg');
       cuerpoRutas.innerHTML = '';
@@ -1398,7 +1518,7 @@
 
       document.getElementById('subtotalRecoleccionSemanaCard').textContent = `RD$ ${totalRecoleccionSemana.toLocaleString('es-DO', { minimumFractionDigits: 2 })}`;
 
-      // 2. Filtrar gastos de la semana
+      // Gastos en efectivo
       const gastosSemana = gastosGuardados.filter(g => g.fecha >= desde && g.fecha <= hasta);
       const cuerpoGastos = document.getElementById('cuerpoGastosSemana');
       const msgSinGastos = document.getElementById('sinGastosSemanaMsg');
@@ -1428,12 +1548,10 @@
 
       document.getElementById('totalGastosSemanaCard').textContent = `- RD$ ${totalGastosSemana.toLocaleString('es-DO', { minimumFractionDigits: 2 })}`;
 
-      // 3. Totales finales a depositar
-      const totalNetoADepositar = Math.max(0, totalRecoleccionSemana - totalGastosSemana);
+      totalNetoDepositoCalculado = Math.max(0, totalRecoleccionSemana - totalGastosSemana);
+      document.getElementById('auditoriaTotalSistema').textContent = `RD$ ${totalNetoDepositoCalculado.toLocaleString('es-DO', { minimumFractionDigits: 2 })}`;
 
-      document.getElementById('tarjetaBrutoSemana').textContent = `RD$ ${totalRecoleccionSemana.toLocaleString('es-DO', { minimumFractionDigits: 2 })}`;
-      document.getElementById('tarjetaGastosSemana').textContent = `- RD$ ${totalGastosSemana.toLocaleString('es-DO', { minimumFractionDigits: 2 })}`;
-      document.getElementById('tarjetaNetoDeposito').textContent = `RD$ ${totalNetoADepositar.toLocaleString('es-DO', { minimumFractionDigits: 2 })}`;
+      calcularArqueoFisico();
     }
 
     async function agregarGasto(e) {
@@ -1472,6 +1590,114 @@
         await guardarDatosEnNube(false);
         calcularDepositoSemanal();
       }
+    }
+
+    // ==========================================
+    // CÁLCULOS DEL ARQUEO FÍSICO Y AUDITORÍA
+    // ==========================================
+    function calcularArqueoFisico() {
+      // 1. Papeletas
+      const b2000 = Number(document.getElementById('b2000').value) || 0;
+      const b1000 = Number(document.getElementById('b1000').value) || 0;
+      const b500 = Number(document.getElementById('b500').value) || 0;
+      const b200 = Number(document.getElementById('b200').value) || 0;
+      const b100 = Number(document.getElementById('b100').value) || 0;
+      const b50 = Number(document.getElementById('b50').value) || 0;
+
+      const sub2000 = b2000 * 2000;
+      const sub1000 = b1000 * 1000;
+      const sub500 = b500 * 500;
+      const sub200 = b200 * 200;
+      const sub100 = b100 * 100;
+      const sub50 = b50 * 50;
+
+      document.getElementById('subB2000').textContent = `RD$ ${sub2000.toLocaleString('es-DO', { minimumFractionDigits: 2 })}`;
+      document.getElementById('subB1000').textContent = `RD$ ${sub1000.toLocaleString('es-DO', { minimumFractionDigits: 2 })}`;
+      document.getElementById('subB500').textContent = `RD$ ${sub500.toLocaleString('es-DO', { minimumFractionDigits: 2 })}`;
+      document.getElementById('subB200').textContent = `RD$ ${sub200.toLocaleString('es-DO', { minimumFractionDigits: 2 })}`;
+      document.getElementById('subB100').textContent = `RD$ ${sub100.toLocaleString('es-DO', { minimumFractionDigits: 2 })}`;
+      document.getElementById('subB50').textContent = `RD$ ${sub50.toLocaleString('es-DO', { minimumFractionDigits: 2 })}`;
+
+      const totalBilletes = sub2000 + sub1000 + sub500 + sub200 + sub100 + sub50;
+      const cantBilletes = b2000 + b1000 + b500 + b200 + b100 + b50;
+      document.getElementById('labelTotalPapeletasContadas').textContent = `${cantBilletes} Billetes`;
+      document.getElementById('totalBilletesCard').textContent = `RD$ ${totalBilletes.toLocaleString('es-DO', { minimumFractionDigits: 2 })}`;
+
+      // 2. Monedas Físicas
+      const m25 = Number(document.getElementById('m25').value) || 0;
+      const m10 = Number(document.getElementById('m10').value) || 0;
+      const m5 = Number(document.getElementById('m5').value) || 0;
+      const m1 = Number(document.getElementById('m1').value) || 0;
+
+      const subM25 = m25 * 25;
+      const subM10 = m10 * 10;
+      const subM5 = m5 * 5;
+      const subM1 = m1 * 1;
+
+      document.getElementById('subM25').textContent = `RD$ ${subM25.toLocaleString('es-DO', { minimumFractionDigits: 2 })}`;
+      document.getElementById('subM10').textContent = `RD$ ${subM10.toLocaleString('es-DO', { minimumFractionDigits: 2 })}`;
+      document.getElementById('subM5').textContent = `RD$ ${subM5.toLocaleString('es-DO', { minimumFractionDigits: 2 })}`;
+      document.getElementById('subM1').textContent = `RD$ ${subM1.toLocaleString('es-DO', { minimumFractionDigits: 2 })}`;
+
+      const totalMonedas = subM25 + subM10 + subM5 + subM1;
+      const cantMonedas = m25 + m10 + m5 + m1;
+      document.getElementById('labelTotalMonedasContadas').textContent = `${cantMonedas} Monedas`;
+      document.getElementById('totalMonedasFisicasCard').textContent = `RD$ ${totalMonedas.toLocaleString('es-DO', { minimumFractionDigits: 2 })}`;
+
+      // 3. Total Dinero Físico en Mano
+      const totalFisicoEnMano = totalBilletes + totalMonedas;
+      document.getElementById('totalFisicoEnManoCard').textContent = `RD$ ${totalFisicoEnMano.toLocaleString('es-DO', { minimumFractionDigits: 2 })}`;
+      document.getElementById('auditoriaTotalContado').textContent = `RD$ ${totalFisicoEnMano.toLocaleString('es-DO', { minimumFractionDigits: 2 })}`;
+
+      // 4. Comparación con el depósito del sistema
+      const diferencia = totalFisicoEnMano - totalNetoDepositoCalculado;
+      const difElemento = document.getElementById('auditoriaDiferencia');
+      const badgeEstado = document.getElementById('badgeEstadoCuadre');
+      const msgAuditoria = document.getElementById('mensajeAuditoria');
+      const contenedor = document.getElementById('contenedorAuditoria');
+
+      if (totalFisicoEnMano === 0 && totalNetoDepositoCalculado === 0) {
+        difElemento.textContent = `RD$ 0.00`;
+        badgeEstado.className = "px-2.5 py-0.5 rounded-full text-xs font-black uppercase bg-slate-800 text-slate-300";
+        badgeEstado.textContent = "Sin movimientos";
+        msgAuditoria.textContent = "No hay datos para comparar.";
+        contenedor.className = "p-5 rounded-2xl shadow-lg border space-y-3 bg-slate-900 text-white border-slate-800";
+      } else if (totalFisicoEnMano === 0) {
+        difElemento.textContent = `- RD$ ${totalNetoDepositoCalculado.toLocaleString('es-DO', { minimumFractionDigits: 2 })}`;
+        badgeEstado.className = "px-2.5 py-0.5 rounded-full text-xs font-black uppercase bg-slate-800 text-slate-300";
+        badgeEstado.textContent = "Pendiente conteo físico";
+        msgAuditoria.textContent = "Ingresa las papeletas y monedas para verificar si cuadra con el depósito.";
+        contenedor.className = "p-5 rounded-2xl shadow-lg border space-y-3 bg-slate-900 text-white border-slate-800";
+      } else if (diferencia === 0) {
+        difElemento.textContent = `RD$ 0.00`;
+        difElemento.className = "text-2xl font-black text-emerald-400";
+        badgeEstado.className = "px-2.5 py-0.5 rounded-full text-xs font-black uppercase bg-emerald-500/20 text-emerald-300 border border-emerald-500/30";
+        badgeEstado.textContent = "✅ ¡Caja Cuadrada Exacta!";
+        msgAuditoria.textContent = "El dinero contado en mano coincide exactamente con el monto a depositar.";
+        contenedor.className = "p-5 rounded-2xl shadow-lg border space-y-3 bg-slate-900 text-white border-emerald-600/50";
+      } else if (diferencia < 0) {
+        const faltante = Math.abs(diferencia);
+        difElemento.textContent = `- RD$ ${faltante.toLocaleString('es-DO', { minimumFractionDigits: 2 })}`;
+        difElemento.className = "text-2xl font-black text-rose-400";
+        badgeEstado.className = "px-2.5 py-0.5 rounded-full text-xs font-black uppercase bg-rose-500/20 text-rose-300 border border-rose-500/30";
+        badgeEstado.textContent = "⚠️ Faltante de Dinero";
+        msgAuditoria.textContent = `Faltan RD$ ${faltante.toLocaleString('es-DO', { minimumFractionDigits: 2 })} en el conteo para alcanzar el total del sistema.`;
+        contenedor.className = "p-5 rounded-2xl shadow-lg border space-y-3 bg-slate-900 text-white border-rose-600/50";
+      } else {
+        difElemento.textContent = `+ RD$ ${diferencia.toLocaleString('es-DO', { minimumFractionDigits: 2 })}`;
+        difElemento.className = "text-2xl font-black text-amber-400";
+        badgeEstado.className = "px-2.5 py-0.5 rounded-full text-xs font-black uppercase bg-amber-500/20 text-amber-300 border border-amber-500/30";
+        badgeEstado.textContent = "ℹ️ Sobrante de Efectivo";
+        msgAuditoria.textContent = `Tienes RD$ ${diferencia.toLocaleString('es-DO', { minimumFractionDigits: 2 })} de más en físico respecto a lo liquidado en el sistema.`;
+        contenedor.className = "p-5 rounded-2xl shadow-lg border space-y-3 bg-slate-900 text-white border-amber-600/50";
+      }
+    }
+
+    function limpiarArqueoFisico() {
+      ['b2000', 'b1000', 'b500', 'b200', 'b100', 'b50', 'm25', 'm10', 'm5', 'm1'].forEach(id => {
+        document.getElementById(id).value = '';
+      });
+      calcularArqueoFisico();
     }
 
     function exportarDepositoWord() {
@@ -1514,6 +1740,22 @@
       }
 
       const totalNetoADepositar = Math.max(0, totalRecoleccion - totalGastos);
+
+      // Desglose del arqueo físico para el Word
+      const b2000 = Number(document.getElementById('b2000').value) || 0;
+      const b1000 = Number(document.getElementById('b1000').value) || 0;
+      const b500 = Number(document.getElementById('b500').value) || 0;
+      const b200 = Number(document.getElementById('b200').value) || 0;
+      const b100 = Number(document.getElementById('b100').value) || 0;
+      const b50 = Number(document.getElementById('b50').value) || 0;
+
+      const m25 = Number(document.getElementById('m25').value) || 0;
+      const m10 = Number(document.getElementById('m10').value) || 0;
+      const m5 = Number(document.getElementById('m5').value) || 0;
+      const m1 = Number(document.getElementById('m1').value) || 0;
+
+      const totalFisico = (b2000*2000)+(b1000*1000)+(b500*500)+(b200*200)+(b100*100)+(b50*50)+(m25*25)+(m10*10)+(m5*5)+(m1*1);
+      const dif = totalFisico - totalNetoADepositar;
 
       const contenidoDoc = `
         <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
@@ -1559,8 +1801,18 @@
           <table>
             <tbody>
               <tr class="total-row">
-                <td style="padding: 12px; font-size: 16px; font-weight: bold; color: #0f172a;">TOTAL NETO A DEPOSITAR:</td>
-                <td style="padding: 12px; font-size: 18px; font-weight: bold; text-align: right; color: #047857;">RD$ ${totalNetoADepositar.toLocaleString('es-DO', { minimumFractionDigits: 2 })}</td>
+                <td style="padding: 12px; font-size: 15px; font-weight: bold; color: #0f172a;">TOTAL SISTEMA A DEPOSITAR:</td>
+                <td style="padding: 12px; font-size: 16px; font-weight: bold; text-align: right; color: #1e3a8a;">RD$ ${totalNetoADepositar.toLocaleString('es-DO', { minimumFractionDigits: 2 })}</td>
+              </tr>
+              <tr style="background-color: #f1f5f9;">
+                <td style="padding: 8px 12px; font-size: 13px; font-weight: bold;">Efectivo Físico Contado en Bolsa:</td>
+                <td style="padding: 8px 12px; font-size: 14px; font-weight: bold; text-align: right;">RD$ ${totalFisico.toLocaleString('es-DO', { minimumFractionDigits: 2 })}</td>
+              </tr>
+              <tr style="border-top: 1px solid #94a3b8;">
+                <td style="padding: 8px 12px; font-size: 13px; font-weight: bold;">Diferencia de Cuadre:</td>
+                <td style="padding: 8px 12px; font-size: 14px; font-weight: bold; text-align: right; color: ${dif === 0 ? '#047857' : (dif < 0 ? '#dc2626' : '#d97706')};">
+                  ${dif === 0 ? 'CUADRADO EXACTO' : (dif < 0 ? '- RD$ ' + Math.abs(dif).toLocaleString('es-DO', { minimumFractionDigits: 2 }) : '+ RD$ ' + dif.toLocaleString('es-DO', { minimumFractionDigits: 2 }))}
+                </td>
               </tr>
             </tbody>
           </table>
